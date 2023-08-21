@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="MyApp" packages="">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{DEFAULT} %5p %c{1}: %m%n"/>
+        </Console>
+    </Appenders>
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="logs/hippodrome.log" filePattern="logs/hippodrome.%d{MM-dd-yyyy}.log">
+            <PatternLayout>
+                <Pattern>%d{DEFAULT}%5p %c{1}: %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath = "logs">
+                    <IfFileName glob="hippodrome.*.log"/>
+                    <IfLastModified age = "7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

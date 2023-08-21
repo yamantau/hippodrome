@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info" name="MyApp" packages="">
+<Configuration status="info" name="hippodrome" packages="">
     <Appenders>
         <RollingFile name="RollingFile" fileName="logs/hippodrome.log" filePattern="logs/hippodrome.%d{MM-dd-yyyy}.log">
             <PatternLayout>
-                <Pattern>%d{DEFAULT}%5p %c{1}: %m%n</Pattern>
+                <Pattern>%d{DEFAULT} %5p %c{1}: %m%n</Pattern>
             </PatternLayout>
             <Policies>
                 <TimeBasedTriggeringPolicy />

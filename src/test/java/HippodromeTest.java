@@ -10,29 +10,27 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-
-// мы мокаем класс, а можем ли мы создавать разные объекты одного мокнутого класса
 public class HippodromeTest {
 
 
     @Test
-    public void isNull() {
+    public void nameIsNull() {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Hippodrome(null);
         });
 
-        assertEquals(exception.getMessage(), "Horses cannot be null.");
+        assertEquals("Horses cannot be null.", exception.getMessage());
 
     }
 
     @Test
-    public void isEmpty(){
+    public void nameIsEmpty(){
         Exception exception = assertThrows(IllegalArgumentException.class, ()->{
             new Hippodrome(new ArrayList<>());
         });
 
-        assertEquals(exception.getMessage(), "Horses cannot be empty.");
+        assertEquals("Horses cannot be empty.", exception.getMessage());
     }
 
     @Test
@@ -53,16 +51,16 @@ public class HippodromeTest {
     public void move(){
         List<Horse> horses = new ArrayList<>();
 
-        Horse horse = Mockito.mock(Horse.class);
-
         for (int i = 0; i < 50; i++) {
-            horses.add(horse);
+            horses.add(Mockito.mock(Horse.class));
         }
 
         Hippodrome hippodrome = new Hippodrome(horses);
         hippodrome.move();
 
-        verify(horse, times(50)).move();
+        for (int i = 0; i < 50; i++) {
+            verify(horses.get(i), times(1)).move();
+        }
 
     }
 

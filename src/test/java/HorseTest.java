@@ -7,13 +7,10 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 
-//can be isEmpty with regex
-//can we replace our double values to random double values "2.2 -> random"
-
 class HorseTest {
 
     @Test
-    public void isNull() {
+    public void nameIsNull() {
 
         //Exception check
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -21,13 +18,13 @@ class HorseTest {
         });
 
         //Text check
-        assertEquals(exception.getMessage(), "Name cannot be null.");
+        assertEquals("Name cannot be null.", exception.getMessage());
 
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"", "\t", " ", "\n", "\r"})
-    public void isEmpty(String args) {
+    public void nameIsEmpty(String args) {
 
         //Exception check
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -35,7 +32,7 @@ class HorseTest {
         });
 
         //Text check
-        assertEquals(exception.getMessage(), "Name cannot be blank.");
+        assertEquals("Name cannot be blank.", exception.getMessage());
     }
 
     @Test
@@ -47,7 +44,7 @@ class HorseTest {
         });
 
         //Text check
-        assertEquals(exception.getMessage(), "Speed cannot be negative.");
+        assertEquals("Speed cannot be negative.", exception.getMessage());
 
     }
 
@@ -60,38 +57,35 @@ class HorseTest {
         });
 
         //Text check
-        assertEquals(exception.getMessage(), "Distance cannot be negative.");
+        assertEquals("Distance cannot be negative.", exception.getMessage());
 
     }
 
     @Test
     public void getName() {
         Horse horse = new Horse("Asd", 2.2);
-        assertEquals(horse.getName(), "Asd");
+        assertEquals("Asd", horse.getName());
     }
 
     @Test
     public void getSpeed() {
         Horse horse = new Horse("Asd", 2.2);
-        assertEquals(horse.getSpeed(), 2.2);
+        assertEquals(2.2, horse.getSpeed());
     }
 
     @Test
     public void getDistance() {
         Horse horse = new Horse("Asd", 2.2);
-        assertEquals(horse.getDistance(), 0);
+        assertEquals(0, horse.getDistance());
 
         horse = new Horse("Asd", 2.2, 34);
-        assertEquals(horse.getDistance(), 34);
+        assertEquals(34, horse.getDistance());
     }
 
     @Test
     public void move() {
 
         try (MockedStatic<Horse> fakeClass = Mockito.mockStatic(Horse.class)) {
-            fakeClass.when(() -> {
-                Horse.getRandomDouble(0.2, 0.9);
-            }).thenReturn((Math.random() * (0.9 - 0.2)) + 0.9);
 
             Horse horse = new Horse("Asd", 2.2);
             horse.move();
